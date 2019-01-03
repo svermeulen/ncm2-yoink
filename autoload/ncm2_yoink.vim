@@ -32,6 +32,9 @@ func! s:updateYankList()
             let firstLine = strpart(entry.text, 0, newLinePos)
         endif
 
+        " Trim whitespace
+        let firstLine = substitute(firstLine, '^\s*\(.\{-}\)\s*$', '\1', '')
+
         call add(s:yankList, firstLine)
     endfor
 endfunc
