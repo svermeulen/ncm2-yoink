@@ -24,18 +24,16 @@ func! s:updateYankList()
     endif
 
     for entry in yoink#getYankHistory()
-        let newLinePos = stridx(entry.text, "\n")
 
-        if newLinePos == -1
-            let firstLine = entry.text
+        " Ignore multiline yanks
+        if stridx(entry.text, "\n") != -1
+            continue
         else
-            let firstLine = strpart(entry.text, 0, newLinePos)
-        endif
 
         " Trim whitespace
-        let firstLine = substitute(firstLine, '^\s*\(.\{-}\)\s*$', '\1', '')
+        let trimmedText = substitute(entry.text, '^\s*\(.\{-}\)\s*$', '\1', '')
 
-        call add(s:yankList, firstLine)
+        call add(s:yankList, trimmedText)
     endfor
 endfunc
 
