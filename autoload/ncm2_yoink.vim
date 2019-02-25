@@ -28,7 +28,7 @@ func! s:updateYankList()
         " Ignore multiline yanks
         if stridx(entry.text, "\n") != -1
             continue
-        else
+        endif
 
         " Trim whitespace
         let trimmedText = substitute(entry.text, '^\s*\(.\{-}\)\s*$', '\1', '')
