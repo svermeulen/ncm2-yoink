@@ -25,16 +25,15 @@ func! s:getAsSuggestion(text)
         return ''
     endif
 
-    " If no whitespace then it's good to include
-    if match(a:text, '\v\s') == -1
-        return a:text
-    endif
-
     " If it just has some extra whitespace then just trim that
     let trimmedText = substitute(a:text, '\v^\s*(\S+)\s*$', '\1', '')
 
     if trimmedText !=# a:text
         return trimmedText
+    endif
+
+    if match(a:text, '\v^\w+$') != -1
+        return a:text
     endif
 
     return ''
